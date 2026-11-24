@@ -122,6 +122,10 @@ C<PDL::ML::Token::Tokenisers> provides BPE tokenization and HuggingFace C<tokeni
 loading in pure Perl, encoding text directly into L<PDL> C<long> token-ID
 ndarrays for downstream inference in L<PDL::Torch>, L<PDL::ONNX>, or L<PDL::GGML>.
 
+=head1 TYPES
+
+Returns 1-D integer token-ID ndarrays of type C<long> (32-bit signed integer).
+
 =head1 AUTHOR
 
 C.J. Collier E<lt>cjac@google.comE<gt>
