@@ -122,12 +122,65 @@ C<PDL::ML::Token::Tokenisers> provides BPE tokenization and HuggingFace C<tokeni
 loading in pure Perl, encoding text directly into L<PDL> C<long> token-ID
 ndarrays for downstream inference in L<PDL::Torch>, L<PDL::ONNX>, or L<PDL::GGML>.
 
+=head1 TUTORIAL
+
+This tutorial shows how to build a BPE tokenizer from an in-memory vocabulary
+and merge table (or load a HuggingFace C<tokenizer.json> with C<from_file>),
+encode text into a 1-D C<long> L<PDL> token-ID ndarray, and decode it back to
+text.
+
+    use strict;
+    use warnings;
+    use PDL;
+    use PDL::ML::Token::Tokenisers;
+
+    # 1. Construct a BPE tokenizer with vocabulary and merge rules
+    my $tok = PDL::ML::Token::Tokenisers->new(
+        vocab => {
+            '<unk>' => 0,
+            'h'     => 1,
+            'e'     => 2,
+            'l'     => 3,
+            'o'     => 4,
+            'he'    => 5,
+            'll'    => 6,
+            'hell'  => 7,
+            'hello' => 8,
+            'world' => 9,
+            'pdl'   => 10,
+        },
+        merges => [ 'h e', 'l l', 'he ll', 'hell o' ],
+    );
+
+    printf "Vocab size: %d\n", $tok->vocab_size;
+
+    # 2. Encode text into a 1-D PDL long ndarray
+    my $ids = $tok->encode('hello pdl world');
+    print "Token IDs: $ids\n";
+
+    # 3. Decode back to text
+    my $decoded = $tok->decode($ids);
+    print "Decoded: $decoded\n";
+
+    # 4. Or load directly from a HuggingFace tokenizer.json file:
+    # my $hf_tok = PDL::ML::Token::Tokenisers->from_file('tokenizer.json');
+
+See C<examples/quickstart.pl> in the distribution for a runnable version of this
+tutorial.
+
+=head1 TYPES
+
+Returns 1-D integer token-ID ndarrays of type C<long> (32-bit signed integer).
+
 =head1 AUTHOR
 
 C.J. Collier E<lt>cjac@google.comE<gt>
 
-=head1 LICENSE AND COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-Copyright 2026 Google LLC. Apache License, Version 2.0.
+Copyright 2026 Google LLC
+
+This library is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
 
 =cut

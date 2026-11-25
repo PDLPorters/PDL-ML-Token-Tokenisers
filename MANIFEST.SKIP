@@ -6,3 +6,15 @@
 ^PDL-ML-Token-Tokenisers-.*\.tar\.gz$
 \.bak$
 \.swp$
+^\.git/
+^\.github/
+^\.gitignore$
+^dot-git/
+^_alien/
+\.bs$
+\.o$
+\.xsc$
+^lib/.*\.c$
+\.tar\.gz$
+~$
+^PDL-ML-Token-Tokenisers-

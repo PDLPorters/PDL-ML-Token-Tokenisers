@@ -1,6 +1,9 @@
 Changes
-lib/PDL/ML/Token/Tokenisers.pm
-Makefile.PL
+LICENSE
 MANIFEST
 MANIFEST.SKIP
+Makefile.PL
+README.md
+examples/quickstart.pl
+lib/PDL/ML/Token/Tokenisers.pm
 t/01-tokenizers.t
